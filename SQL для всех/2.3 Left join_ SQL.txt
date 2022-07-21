@@ -1,0 +1,11 @@
+
+SELECT City
+from Customers as t1 left join Orders as t2 on t1.CustomerID=t2.CustomerID
+where t2.OrderID is null
+group by City
+
+
+SELECT ContactName,  count(distinct t2.OrderID) as Order_Nums
+from Customers as t1 left join Orders as t2 on t1.CustomerID=t2.CustomerID
+group by ContactName
+order by count(distinct t2.OrderID) desc

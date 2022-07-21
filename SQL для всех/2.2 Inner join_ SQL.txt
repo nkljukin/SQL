@@ -1,0 +1,6 @@
+# Объединение нескольких таблиц
+
+SELECT distinct t2.FirstName, t2.LastName
+from Orders as t1 inner join Employees as t2 on t1.EmployeeID=t2.EmployeeID
+                  inner join Customers as t3 on t1.CustomerID = t3.CustomerID
+where t3.ContactName = 'Francisco Chang'

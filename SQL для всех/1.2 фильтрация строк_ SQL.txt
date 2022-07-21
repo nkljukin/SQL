@@ -1,0 +1,24 @@
+
+select [ContactName], [ContactTitle]
+from Customers 
+where [ContactTitle] like '%Sales%'  # Содержит слово Sales
+
+
+
+select [ContactName], [ContactTitle]
+from Customers 
+where [ContactTitle] like 'Sales%' # начинается со слова  Sales
+
+
+select [ContactName], [ContactTitle]
+from Customers 
+where [ContactName] like 'A%' # начинается со буквы А
+
+
+select [ContactName], [ContactTitle]
+from Customers 
+where ContactTitle like '%Manager' # заканчивается словом Manager
+
+select ProductName, UnitPrice
+from Products
+where UnitPrice between 10 and 15 # между 10 и 15 - включая границы диапазона

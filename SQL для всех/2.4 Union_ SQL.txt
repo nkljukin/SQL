@@ -1,0 +1,35 @@
+
+# Объединение двух граф разных талиц с пересечением уникальных данных
+select title
+from Employees
+union
+select ContactTitle
+from Customers
+
+# Объединение двух граф разных талиц с пересечением всех данных
+select title
+from Employees
+union all
+select ContactTitle
+from Customers
+
+# данные есть в первой таблице и отс во второй
+select title
+from Employees
+except
+select ContactTitle
+from Customers
+
+# данные есть и в первой таблице и во второй
+select title
+from Employees
+intersect
+select ContactTitle
+from Customers
+
+# объединять можно много столбцов
+select Country, Title
+from Employees
+union all
+select Country, ContactTitle
+from Customers

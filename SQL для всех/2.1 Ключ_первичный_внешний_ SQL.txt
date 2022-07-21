@@ -1,0 +1,15 @@
+
+# объединение таблиц по одному ключу CategoryID
+select t1.*, t2.*
+from Products t1 inner join Categories t2 on t1.CategoryID = t2.CategoryID
+
+
+select Products.CategoryID, CategoryName, ProductName
+from Products inner join Categories on Products.CategoryID = Categories.CategoryID
+where CategoryName = 'Seafood'
+
+
+select t1.CategoryID, CategoryName, ProductName, t2.CategoryName, t1.ProductID
+from Products as t1 inner join Categories as t2 on t1.CategoryID = t2.CategoryID
+where CategoryName = 'Seafood'
+

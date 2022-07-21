@@ -1,0 +1,18 @@
+
+select ProductName, UnitPrice, [CategoryID]
+from Products
+order by [UnitPrice] # сортировка по полю от мин к макс
+
+select ProductName, CategoryID, UnitPrice
+from Products
+order by CategoryID, UnitPrice # сортировка по двум кат от мин к макс
+
+select ProductName, CategoryID, UnitPrice
+from Products
+order by CategoryID desc, UnitPrice desc # сортировка по двум кат от макс к мин
+
+# Фильтрация с сортировкой
+select ProductName, CategoryID, UnitPrice
+from Products
+where UnitPrice < 10
+order by CategoryID desc, UnitPrice desc

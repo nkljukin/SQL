@@ -1,0 +1,19 @@
+
+SELECT distinct Country # список уникальных стран
+from Customers;
+
+SELECT count(distinct Country)
+from Customers;           # число уникальных стран
+
+
+SELECT min(UnitPrice) as max_price, min(UnitPrice) as max_price, avg(UnitPrice), sum(UnitPrice), count(UnitPrice)
+from Products; # мин макс среднее и тд по столбцу с названием столбцов в результ таблице (алиасы)
+
+# Максимальная цена в категории 
+SELECT max([UnitPrice]) 
+from Products
+where CategoryID = 3
+
+SELECT sum([UnitPrice]) 
+from Products
+where CategoryID between 4 and 5 # or  where CategoryID in (4, 5) 

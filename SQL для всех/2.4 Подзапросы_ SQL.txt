@@ -1,0 +1,33 @@
+
+# Запрос берется в скобки как table1 и из него формируется еще один запрос
+
+select count(*)
+from 
+    (select OrderDate, count(*) as cnt
+    from Orders
+    group by OrderDate
+    having count(*)>2) as table1
+
+# есть запрос, его можно использовать как результат из которого взять условия для другого запроса
+select CustomerID
+from Customers
+where Country = 'USA'
+
+select *
+from Orders
+where CustomerID in (select CustomerID
+                        from Customers
+                        where Country = 'USA')
+
+### Доля выручки из стран от общей выручки
+select country, 
+sum(UnitPrice*Quantity*(1-Discount)) as Revenue,
+sum(UnitPrice*Quantity*(1-Discount))/(
+                                        select sum(UnitPrice*Quantity*(1-Discount)) 
+                                        from [Order Details])*100 as Part 
+from [Order Details] as t1 inner join Orders as t2 on t1.OrderID=t2.OrderID
+                           inner join Customers as t3 on t2.CustomerID = t3.CustomerID
+group by Country
+order by sum(UnitPrice*Quantity*(1-Discount))/(
+                                        select sum(UnitPrice*Quantity*(1-Discount)) 
+                                        from [Order Details])*100 desc 

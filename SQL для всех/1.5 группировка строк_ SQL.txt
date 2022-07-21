@@ -1,0 +1,33 @@
+
+
+SELECT Country, count(*) # подсчет значений по странам
+from Customers
+group by Country            #  группировка по странам
+
+
+SELECT CategoryID, count(*) as Count, min(UnitPrice) as Min, max(UnitPrice)
+from Products
+WHERE CategoryID <> 8
+group by CategoryID
+having count(*) > 10 and min(UnitPrice) > 5 # группировка по условиям агрегир функций
+
+
+select Country, count(*)
+from Customers
+group by Country
+having count(*)>5
+order by count(*) # сортировка по значению агрегир функции
+
+
+select Country, count(*)
+from Customers
+group by Country
+having count(*)>5
+order by Country desc  # направление сортировки по агрегир функции
+
+# сколько сделок имеют скидки больше 3000
+select OrderID, sum(UnitPrice*Quantity*Discount) as Rebahas
+from [Order Details]
+group by OrderID
+having sum(UnitPrice*Quantity*Discount) > 3000
+order by sum(UnitPrice*Quantity*Discount) desc
