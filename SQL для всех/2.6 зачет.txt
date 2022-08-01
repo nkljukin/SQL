@@ -1,0 +1,77 @@
+
+select count(*)
+from 
+    (select OrderDate, count(*) as cnt
+    from Orders
+    group by OrderDate
+    having count(*)>2) as table1
+
+select CustomerID
+from Customers
+where Country = 'USA'
+
+select *
+from Orders
+where CustomerID in (select CustomerID
+                        from Customers
+                        where Country = 'USA')
+
+select country, 
+sum(UnitPrice*Quantity*(1-Discount)) 
+from [Order Details] as t1 inner join Orders as t2 on t1.OrderID=t2.OrderID
+                           inner join Customers as t3 on t2.CustomerID = t3.CustomerID
+group by Country 
+
+select sum(UnitPrice*Quantity*(1-Discount)) 
+from [Order Details]
+
+select country, 
+sum(UnitPrice*Quantity*(1-Discount)) as Revenue,
+sum(UnitPrice*Quantity*(1-Discount))/(
+                                        select sum(UnitPrice*Quantity*(1-Discount)) 
+                                        from [Order Details])*100 as Part 
+from [Order Details] as t1 inner join Orders as t2 on t1.OrderID=t2.OrderID
+                           inner join Customers as t3 on t2.CustomerID = t3.CustomerID
+group by Country
+order by sum(UnitPrice*Quantity*(1-Discount))/(
+                                        select sum(UnitPrice*Quantity*(1-Discount)) 
+                                        from [Order Details])*100 desc 
+
+
+select Country, count(distinct CustomerID) as Num_Cust
+from Customers
+group by Country
+having count(distinct CustomerID) > 1
+
+select count(*)
+from (select Country, count(distinct CustomerID) as Num_Cust
+        from Customers
+        group by Country
+        having count(distinct CustomerID) > 1) as Active_countries
+
+(select CustomerID, count(*) as cnt
+from Orders
+group by CustomerID
+having count(*)>10) as table 1
+
+select count(*)
+from
+    (select CustomerID, count(*) as cnt
+    from Orders
+    group by CustomerID
+    having count(*)>10) as table1
+
+select distinct t1.CustomerID, count(t2.ShipVia) as ord_sum
+from Customers as t1 left join Orders as t2 on t1.CustomerID=t2.CustomerID
+group by t1.CustomerID
+having count(t2.ShipVia) <= 10
+
+(select ProductID
+from Products
+where CategoryID = 1) as table1
+
+select sum(UnitPrice*Quantity*(1-Discount)) as Rev
+from [Order Details]
+where ProductID in (select ProductID
+                    from Products
+                    where CategoryID = 1)
